@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Quiz</title>
+</head>
+<body>
+<h1>Liste des Quiz</h1>
+<div th:each="quiz : ${quizList}">
+    <p th:text="${quiz.title}">Titre du Quiz</p>
+
+</div>
+<a th:href="@{/quiz/add}">Créer un nouveau Quiz</a>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Scores</title>
+</head>
+<body>
+<h1>Scores</h1>
+<div th:each="score : ${scores}">
+    <p th:text="${score.username} + ' : ' + ${score.score}">Nom d'utilisateur : Score</p>
+</div>
+</body>
+</html>
