@@ -9,35 +9,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/quiz")
+@RestController
+@RequestMapping("/api/questions")
 public class QuizController {
 
     @Autowired
-    private QuizService quizService;
+    private QuizService QuizService;
 
-    @GetMapping
-    public String getAllQuiz(Model model) {
-        List<Quiz> quizList = quizService.getAllQuizzes();
-        model.addAttribute("quizList", quizList);
-        return "quiz"; // Nom du template Thymeleaf pour afficher les quiz
+    @GetMapping("/random")
+    public List<Quiz> getRandomQuestions() {
+        return QuizService.getRandomQuestions();
     }
-
-    @GetMapping("/add")
-    public String addQuizForm(Model model) {
-        model.addAttribute("quiz", new Quiz());
-        return "add_quiz"; // Nom du template Thymeleaf pour ajouter un quiz
-    }
-
-    @PostMapping("/add")
-    public String createQuiz(Quiz quiz) {
-        quizService.saveQuiz(quiz);
-        return "redirect:/quiz";
-    }
-
-
 }
-
 
 
 
