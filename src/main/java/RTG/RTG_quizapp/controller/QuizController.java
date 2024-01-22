@@ -16,6 +16,7 @@ public class QuizController {
     @Autowired
     private QuizService QuizService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/random")
     public List<Quiz> getRandomQuestions() {
         return QuizService.getRandomQuestions();
