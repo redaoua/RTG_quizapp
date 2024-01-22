@@ -6,45 +6,53 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
-const card = (
-  <React.Fragment>
-    <CardContent>
-      <Typography variant="h5" component="div">
-        Entrez votre nom pour démarrer
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Box sx={{ width: "100vh", display: "flex", alignItems: "center" }}>
-        <TextField
-          required
-          id="outlined-required"
-          label="Name"
-          defaultValue=""
-          margin="normal"
-          variant="outlined"
-          sx={{ marginLeft: 1 }}
-        />
-        <Button
-          color="primary"
-          size="medium"
-          variant="filled"
-          sx={{ marginLeft: 3, fontFamily: "arial" }}
-        >
-          Start
-        </Button>
-      </Box>
-    </CardActions>
-  </React.Fragment>
-);
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const redirectToQuizPage = (event) => {
+    navigate('/quiz');
+  };
+
+  const card = (
+    <React.Fragment>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          Entrez votre nom pour démarrer
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Box sx={{ width: "100vh", display: "flex", alignItems: "center" }}>
+          <TextField
+            required
+            id="outlined-required"
+            label="Name"
+            defaultValue=""
+            margin="normal"
+            variant="outlined"
+            sx={{ marginLeft: 1 }}
+          />
+          <Button
+            color="primary"
+            size="medium"
+            variant="filled"
+            sx={{ marginLeft: 3, fontFamily: "arial" }}
+            onClick={redirectToQuizPage}
+          >
+            Start
+          </Button>
+        </Box>
+      </CardActions>
+    </React.Fragment>
+  );
+
   return (
     <>
       <Box
         sx={{
           height: "100vh",
-          //background: "rgb(5,25,85)",
           background:
             "linear-gradient(126deg, rgba(5,25,85,1) 35%, rgba(63,4,117,1) 76%, rgba(5,25,85,1) 100%)",
           width: "100%",
