@@ -10,9 +10,11 @@ import {
     FormControl,
     Box,
     LinearProgress,
-    Grow
+    Grow,
+    CircularProgress,
 } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Quiz = () => {
     const [questions, setQuestions] = useState([]);
@@ -22,11 +24,16 @@ const Quiz = () => {
     const [timer, setTimer] = useState(30);
     const [quizFinished, setQuizFinished] = useState(false);
     const userName = sessionStorage.getItem("userName");
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [message, setMessage] = useState("Chargement des questions...");
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/questions/random")
             .then((response) => {
                 setQuestions(response.data);
+                setLoading(false);
+                setMessage("Chargement terminé. Veuillez patienter 5 secondes...");
             })
             .catch((error) => {
                 console.error("Erreur lors du chargement des questions", error);
@@ -65,10 +72,32 @@ const Quiz = () => {
                 username: userName,
                 score: score
             });
+
+            setTimeout(() => {
+                navigate("/leaderboard");
+            }, 5000);
         }
     };
 
-    if (!questions.length) return <p>Chargement des questions...</p>;
+    if (loading) {
+        return (
+            <Box
+                sx={{
+                    height: "100vh",
+                    background: "linear-gradient(126deg, rgba(5,25,85,1) 35%, rgba(63,4,117,1) 76%, rgba(5,25,85,1) 100%)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <CircularProgress color="primary" sx={{ mb: 2 }} />
+                <Typography variant="h6" color="textSecondary">
+                    {message}
+                </Typography>
+            </Box>
+        );
+    }
 
     if (quizFinished) {
         return (
@@ -95,6 +124,9 @@ const Quiz = () => {
                         </Typography>
                         <Typography variant="h5">
                             Votre score : {score} / {questions.length}
+                        </Typography>
+                        <Typography variant="h6" color="textSecondary">
+                            Veuillez patienter 5 secondes avant l'affichage du leaderboard...
                         </Typography>
                     </CardContent>
                 </Card>
@@ -160,6 +192,9 @@ const Quiz = () => {
 };
 
 export default Quiz;
+
+
+
 
 
 
