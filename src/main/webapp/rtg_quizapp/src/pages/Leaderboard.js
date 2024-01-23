@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Box, Paper, Typography, List, ListItem, Fade } from "@mui/material";
+import { Box, Paper, Typography, List, ListItem, Fade, Button } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Leaderboard = () => {
     const [scores, setScores] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/userscores/top10")
@@ -14,6 +16,10 @@ const Leaderboard = () => {
                 console.error("Erreur lors du chargement des scores", error);
             });
     }, []);
+
+    const navigateToHome = () => {
+        navigate("/"); // Utilisez la route "/" pour la page d'accueil
+    };
 
     return (
         <Box
@@ -38,6 +44,9 @@ const Leaderboard = () => {
                             </ListItem>
                         ))}
                     </List>
+                    <Button variant="contained" color="primary" onClick={navigateToHome} sx={{ mt: 2 }}>
+                        Retour à l'accueil
+                    </Button>
                 </Paper>
             </Fade>
         </Box>
@@ -45,5 +54,6 @@ const Leaderboard = () => {
 };
 
 export default Leaderboard;
+
 
 
