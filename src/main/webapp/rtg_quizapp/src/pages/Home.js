@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Button from "@mui/material-next/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -13,8 +13,21 @@ const Home = () => {
   const navigate = useNavigate();
 
   const redirectToQuizPage = (event) => {
+    sessionStorage.setItem("userName", textValue)
     navigate('/quiz');
   };
+
+  const [textValue, setTextValue] = useState("");
+  const [checkValue, setCheckValue] = useState(true);
+
+  useEffect(() => {
+    if (textValue.trim() != ""){
+      setCheckValue(false);
+    }
+    else{
+      setCheckValue(true);
+    }
+  }, [textValue])
 
   const card = (
     <React.Fragment>
@@ -33,6 +46,8 @@ const Home = () => {
             margin="normal"
             variant="outlined"
             sx={{ marginLeft: 1 }}
+            value={textValue}
+            onChange={(e) => setTextValue(e.target.value)}
           />
           <Button
             color="primary"
@@ -40,6 +55,7 @@ const Home = () => {
             variant="filled"
             sx={{ marginLeft: 3, fontFamily: "arial" }}
             onClick={redirectToQuizPage}
+            disabled={checkValue}
           >
             Start
           </Button>
