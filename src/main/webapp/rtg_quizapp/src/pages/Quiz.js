@@ -65,21 +65,23 @@ const Quiz = () => {
   };
 
   const nextQuestion = async () => {
+    let updatedScore = score;
     if (selectedAnswer === questions[currentQuestionIndex].prop1) {
+      updatedScore = score + 1;
       setScore(score + 1);
     }
 
     let nextIndex = currentQuestionIndex + 1;
     if (nextIndex < questions.length) {
       setCurrentQuestionIndex(nextIndex);
-      setTimer(30);
+      setTimer(800);
       setSelectedAnswer("");
     } else {
       setQuizFinished(true);
       await axios
         .post("http://localhost:8080/api/userscores/insert", {
           username: sessionStorage.getItem("username"),
-          score: score,
+          score: updatedScore,
         })
         .then(() => {
           sessionStorage.removeItem("username");

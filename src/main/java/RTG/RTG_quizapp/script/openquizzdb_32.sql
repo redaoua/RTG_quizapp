@@ -7,8 +7,7 @@ CREATE TABLE IF NOT EXISTS userscores (
   user_id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   username varchar(255) NOT NULL default '',
   score int NOT NULL default 0,
-  PRIMARY KEY (user_id),
-  UNIQUE KEY username_unique (username)
+  PRIMARY KEY (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 
