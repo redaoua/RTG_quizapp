@@ -74,7 +74,7 @@ const Quiz = () => {
     let nextIndex = currentQuestionIndex + 1;
     if (nextIndex < questions.length) {
       setCurrentQuestionIndex(nextIndex);
-      setTimer(800);
+      setTimer(30);
       setSelectedAnswer("");
     } else {
       setQuizFinished(true);

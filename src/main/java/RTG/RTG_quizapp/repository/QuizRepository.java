@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
-    @Query(value = "SELECT DISTINCT * FROM openquizzdb ORDER BY RAND() LIMIT 10", nativeQuery = true)
-    List<Quiz> findRandomQuestions();
+    @Query(value = "SELECT DISTINCT * FROM openquizzdb ORDER BY RAND() LIMIT 60", nativeQuery = true)
+    List<Quiz> findAllQuestions();
 
-//    default List<Quiz> findRandomQuestions() {
-//        List<Quiz> allQuestions = findAllQuestions();
-//        Collections.shuffle(allQuestions);
-//        return allQuestions.stream().limit(10).collect(Collectors.toList());
-//    }
+    default List<Quiz> findRandomQuestions() {
+        List<Quiz> allQuestions = findAllQuestions();
+        Collections.shuffle(allQuestions);
+        return allQuestions.stream().limit(10).collect(Collectors.toList());
+    }
 }
 
